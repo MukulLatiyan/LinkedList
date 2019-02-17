@@ -2,6 +2,7 @@
 
 //count the nodes of the linked list
 private int getCount(Node head){
+    if(head == null) return;
     Node temp = head;
     int count = 0;
     while(temp!=null){
@@ -13,6 +14,7 @@ private int getCount(Node head){
 
 //linked list length(odd or even)
 private boolean isEven(Node head){
+    if(head == null) return;
     Node temp = head;
     int count = 0;
     while(temp!=null){
@@ -27,6 +29,7 @@ private boolean isEven(Node head){
 
 //print linked list elements
 private void printList(Node head){
+    if(head == null) return;
     Node temp = head;
     while(temp!=null){
         System.out.print(temp.data+" ");
@@ -37,6 +40,7 @@ private void printList(Node head){
 
 //sum of nodes of linked list
 private int linkedListSum(Node head){
+    if(head == null) return;
     Node temp = head;
     int sum = 0;
     while(temp!=null){
@@ -100,6 +104,7 @@ private void insertAtEnd(Node head,int new_data){
 
 //print a node at a given index of linked list
 private int getNthNode(Node head,int pos){
+    if(head == null) return;
     Node temp = head;
     int count = 0;
     while(temp!=null){
@@ -112,6 +117,7 @@ private int getNthNode(Node head,int pos){
 
 //search if given node exists
 private boolean search(Node head,int val){
+    if(head == null) return;
     Node temp = head;
     int count = 0;
     while(temp!=null){
@@ -122,5 +128,162 @@ private boolean search(Node head,int val){
     return false;
 }
 
+/*---- Deletion ----*/
 
+//delete a node at a given index
+private void deleteNodePosition(Node head){
+    if(head == null) return;
+    Node temp = head;
+    if(pos == 0){
+        head = temp.next;
+        return;
+    }
+    for(int i=0;temp!=null && i<pos-1;i++){
+        temp = temp.next;
+    }
+    if(temp==null || temp.next==null) return;
+    Node next = temp.next.next;
+    temp.next = next;
+}
+
+//delete a node of given value
+private void deleteNodeValue(Node head,int val){
+    if(head == null) return;
+    Node temp = head;
+    Node prev = temp;
+    while(temp!=null && temp.data!=val){
+        prev = temp;
+        temp = temp.next;
+    }
+    prev.next = temp.next;
+}
+
+//delete alternate nodes
+private void deleteAlterante(Node head){
+    if(head == null) return;
+    Node slow = head;
+    Node fast = head.next;
+    while(slow!=null && fast!=null){
+        slow.next = fast.next;
+        fast = null;
+        slow = slow.next;
+        if(slow!=null){
+            fast = slow.next;
+        }
+    }
+}
+
+//delete a node without head
+private void delteWithoutHead(Node head){
+    Node temp = node.next;
+    node.data = temp.data;
+    node.next = temp.next;
+}
+
+//sum of last n nodes of a linked list
+private int lastNSum(Node head,int k){
+    ArrayList<Integer> list = new ArrayList<>();
+    Node temp = head;
+    while(temp!=null){
+        list.add(temp.data);
+        temp = temp.next;
+    }
+    int start = list.size()-k;
+    int sum = 0;
+    for(int i=start;i<list.size();i++){
+        sum+=list.get(i);
+    }
+    return sum;
+}
+
+//check if a linked list is circular in nature (what if a loop is present)
+boolean isCircular(Node head){
+    if(head == null) return true;
+    Node temp = head;
+    while(temp.next!=null && temp.next!=head){
+        temp = temp.next;
+    }
+    if(temp.next == null) return false;
+    return true;
+}
+
+//find the middle element of linked list
+private int getMiddle(Node head){
+    if(head == null) return -1;
+    Node slow = head;
+    Node fast = head;
+    while(fast!=null && fast.next!=null){
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow.data;
+}
+
+//detect loop in a linked list
+private boolean isLoopPresent(Node head){
+    if(head==null) return false;
+    Node slow = head;
+    Node fast = head;
+    while(fast!=null && fast.next!=null){
+        slow = slow.next;
+        fast = fast.next.next;
+        if(slow == fast){
+            return true;
+        }
+    }
+    return false;
+}
+
+//find the length of the loop present in linked list
+private int getLoopLength(Node head){
+    if(head == null) return -1;
+    Node slow = head;
+    Node fast = head;
+    int hasCycle = 0;
+    int count = 0;
+    while(fast!=null && fast.next!=null){
+        slow = slow.next;
+        fast = fast.next.next;
+        if(slow == fast){
+            hasCycle = 1;
+            break;
+        }
+    }
+    if(hasCycle == 0){
+        return -1;
+    }else{
+        slow = slow.next;
+        while(slow!=fast){
+            slow = slow.next;
+            count++;
+        }
+    }
+    return count;
+}
+
+//find the start node of the loop in linked list
+private int getStartNodeLoop(Node head){
+    if(head == null) return -1;
+    Node slow = head;
+    Node fast = head;
+    int hasCycle = 0;
+    while(fast!=null && fast.next!=null){
+        slow = slow.next;
+        fast = fast.next.next;
+        if(slow == fast){
+            hasCycle = 1;
+            break;
+        }
+    }
+    if(hasCycle == 0){
+        return -1;
+    }else{
+        slow = head;
+        while(slow!=fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+    }
+    return slow.data;
+}
 
