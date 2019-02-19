@@ -365,3 +365,78 @@ private Node mergeTwoLists(Node a,Node b){
     }
     return headNode.next;
 }
+
+//Intersection of two linked list(Y-shape)
+    private int getLength(ListNode head){
+        ListNode temp = head;
+        int count = 0;
+        while(temp!=null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+    
+    private ListNode _getIntersectionNode(ListNode a,ListNode b,int d){
+        for(int i=0;i<d;i++){
+            a = a.next;
+        }
+        while(a!=null && b!=null){
+            if(a == b){
+                return a; //can also return a.data;
+            }
+            a = a.next;
+            b = b.next;
+        }
+        return null;
+    }
+    
+    private ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        ListNode ans = null;
+        int a_size = getLength(a);
+        int b_size = getLength(b);
+        int d = 0;
+        if(a_size>b_size){
+               d = a_size-b_size;
+               ans = _getIntersectionNode(a,b,d);
+        }else{
+               d = b_size-a_size;
+               ans = _getIntersectionNode(b,a,d);
+        }
+        return ans;
+    }
+
+//remove duplicates from sorted linked list
+private Node removeDuplicates(Node head){
+	if(head == null) return null;
+	Node temp = head;
+	while(temp!=null && temp.next!=null){
+		if(temp.data == temp.next.data){
+			temp.next = temp.next.next;
+		}else{
+			temp = temp.next;
+		}
+	}
+	return head;
+}
+
+//remove duplicates from unsorted linked list
+private Node removeDuplicateUnsorted(Node head){
+	if(head == null) return null;
+	Node temp = head;
+	HashSet<Integer> hset = new HashSet<>();
+	while(temp!=null){
+		if(temp.data == temp.next.data){
+			prev.next = temp.next;
+		}else{
+			prev = temp;
+			hset.add(temp.data);
+		}
+		temp = temp.next;
+	}
+	return head;
+}
+
+//remove all occurrences of duplicate nodes from linked list
