@@ -440,3 +440,60 @@ private Node removeDuplicateUnsorted(Node head){
 }
 
 //remove all occurrences of duplicate nodes from linked list
+
+
+//reverse a linked list
+private Node reverseLinkedList(Node head){
+	Node prev = null;
+	Node current = head;
+	Node next = null;
+	while(current!=null){
+		next = current.next;
+		current.next = prev;
+		prev = current;
+		current = next;
+	}
+	head = prev;
+	return head;
+}
+
+//oddEven Linked list
+private Node OddEvenLinkedList(Node head){
+	if(head == null) return null;
+	Node odd = head;
+	Node even = head.next;
+	Node evenFirst = even;
+	while(even!=null && even.next!=null){
+		odd.next = even.next;
+		odd = odd.next;
+		even.next = odd.next;
+		even = even.next;
+	}
+	odd.next= evenFirst;
+	return head;
+}
+
+//add 1 to a number represented as linked list
+
+
+// nth node from the end of linked list
+private Node printNthFromEnd(Node head,int n){
+	if(head == null) return null;
+	Node ref_ptr = head;
+	Node main_ptr = head;
+	int count = 0;
+	if(head!=null){
+		while(count<n){
+			if(ref_ptr==null){
+				return null;
+			}
+			ref_ptr = ref_ptr.next;
+			count++;
+		}
+		while(ref_ptr!=null){
+			main_ptr = main_ptr.next;
+			ref_ptr = ref_ptr.next;
+		}
+	}
+	return main_ptr.data;
+}
