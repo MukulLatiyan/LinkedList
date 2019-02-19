@@ -287,3 +287,81 @@ private int getStartNodeLoop(Node head){
     return slow.data;
 }
 
+//inserting in the middle of linked list
+private Node InsertInMid(Node head,int data){
+    if(head == null) return head;
+    Node prev = head;
+    Node slow = head;
+    Node fast = head;
+    int flag = 0;
+    Node new_node = new Node(data);
+    if(getLength(head)%2 == 0){
+        flag = 1;
+    }
+    while(slow!=null && fast!=null && fast.next!=null){
+        prev = slow;
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    if(flag == 1){
+        new_node.next = prev.next;
+        prev.next = new_node;
+    }else{
+        new_node.next = slow.next;
+        slow.next = new_node;
+    }
+    return head;
+   }
+}
+
+//check if two linked list are identical
+private boolean compareLists(Node head1,Node head2){
+    Node a = head1;
+    Node b = head2;
+    while(a!=null && b!=null){
+        if(a.data == b.data){
+            a = a.next;
+            b = b.next;
+        }else{
+            return false;
+        }
+       if(a == null && b==null) return true;
+    }
+    return false;
+}
+
+//merge two sorted linked lists(recursive)
+private Node mergeTwoLists(Node l1, Node l2) {
+        if(l1 == null) return l2;
+		if(l2 == null) return l1;
+		if(l1.val < l2.val){
+			l1.next = mergeTwoLists(l1.next, l2);
+			return l1;
+		} else{
+			l2.next = mergeTwoLists(l1, l2.next);
+			return l2;
+		}
+ }
+
+//merge two sorted linked lists(iterative)
+private Node mergeTwoLists(Node a,Node b){
+    Node start = new Node(-1);
+    Node headNode = start;
+    
+    while(a!=null && b!=null){
+        if(a.data<=b.data){
+            start.next = a;
+            a = a.next;
+        }else{
+            start.next = b;
+            b = b.next;
+        }
+        start = start.next;
+    }
+    if(a == null){
+        start.next = b;
+    }else if(b == null){
+        start.next = a;
+    }
+    return headNode.next;
+}
