@@ -1,6 +1,6 @@
-//code 
+// code 
 
-//count the nodes of the linked list
+// count the nodes of the linked list
 private int getCount(Node head){
     if(head == null) return;
     Node temp = head;
@@ -12,7 +12,7 @@ private int getCount(Node head){
     return count;
 }
 
-//linked list length(odd or even)
+// linked list length(odd or even)
 private boolean isEven(Node head){
     if(head == null) return;
     Node temp = head;
@@ -27,7 +27,7 @@ private boolean isEven(Node head){
     return false;
 }
 
-//print linked list elements
+// print linked list elements
 private void printList(Node head){
     if(head == null) return;
     Node temp = head;
@@ -38,7 +38,7 @@ private void printList(Node head){
     System.out.println();
 }
 
-//sum of nodes of linked list
+// sum of nodes of linked list
 private int linkedListSum(Node head){
     if(head == null) return;
     Node temp = head;
@@ -52,14 +52,14 @@ private int linkedListSum(Node head){
 
 /*----Insertion----*/
 
-//insert at the begining of linked list
+// insert at the begining of linked list
 private void push(int new_data){
     Node new_node = new Node(new_data);
     new_node.next = head;
     head = new_node;
 }
 
-//after a given node
+// after a given node
 private void insertAfter(Node prev_node,int new_data){
     if(prev_node == null){
         return;
@@ -69,7 +69,7 @@ private void insertAfter(Node prev_node,int new_data){
     prev_node.next = new_node;
 }
 
-//at a given position 
+// at a given position 
 private void insertAtPosition(Node head,int new_data,int pos){
     Node new_node = new Node(new_data);
     Node temp = head;
@@ -84,7 +84,7 @@ private void insertAtPosition(Node head,int new_data,int pos){
     temp.next = new_node;
 }
 
-//at the end of linked list
+// at the end of linked list
 private void insertAtEnd(Node head,int new_data){
     Node new_node = new Node(new_data);
     if(head == null){
@@ -102,7 +102,7 @@ private void insertAtEnd(Node head,int new_data){
 
 /*---- Searching ----*/
 
-//print a node at a given index of linked list
+// print a node at a given index of linked list
 private int getNthNode(Node head,int pos){
     if(head == null) return;
     Node temp = head;
@@ -115,7 +115,7 @@ private int getNthNode(Node head,int pos){
     return 0;
 }
 
-//search if given node exists
+// search if given node exists
 private boolean search(Node head,int val){
     if(head == null) return;
     Node temp = head;
@@ -130,7 +130,7 @@ private boolean search(Node head,int val){
 
 /*---- Deletion ----*/
 
-//delete a node at a given index
+// delete a node at a given index
 private void deleteNodePosition(Node head){
     if(head == null) return;
     Node temp = head;
@@ -146,7 +146,7 @@ private void deleteNodePosition(Node head){
     temp.next = next;
 }
 
-//delete a node of given value
+// delete a node of given value
 private void deleteNodeValue(Node head,int val){
     if(head == null) return;
     Node temp = head;
@@ -158,7 +158,7 @@ private void deleteNodeValue(Node head,int val){
     prev.next = temp.next;
 }
 
-//delete alternate nodes
+// delete alternate nodes
 private void deleteAlterante(Node head){
     if(head == null) return;
     Node slow = head;
@@ -173,14 +173,14 @@ private void deleteAlterante(Node head){
     }
 }
 
-//delete a node without head
+// delete a node without head
 private void delteWithoutHead(Node head){
     Node temp = node.next;
     node.data = temp.data;
     node.next = temp.next;
 }
 
-//sum of last n nodes of a linked list
+// sum of last n nodes of a linked list
 private int lastNSum(Node head,int k){
     ArrayList<Integer> list = new ArrayList<>();
     Node temp = head;
@@ -196,7 +196,7 @@ private int lastNSum(Node head,int k){
     return sum;
 }
 
-//check if a linked list is circular in nature (what if a loop is present)
+// check if a linked list is circular in nature (what if a loop is present)
 boolean isCircular(Node head){
     if(head == null) return true;
     Node temp = head;
@@ -207,7 +207,7 @@ boolean isCircular(Node head){
     return true;
 }
 
-//find the middle element of linked list
+// find the middle element of linked list
 private int getMiddle(Node head){
     if(head == null) return -1;
     Node slow = head;
@@ -219,7 +219,7 @@ private int getMiddle(Node head){
     return slow.data;
 }
 
-//detect loop in a linked list
+// detect loop in a linked list
 private boolean isLoopPresent(Node head){
     if(head==null) return false;
     Node slow = head;
@@ -234,7 +234,7 @@ private boolean isLoopPresent(Node head){
     return false;
 }
 
-//find the length of the loop present in linked list
+// find the length of the loop present in linked list
 private int getLoopLength(Node head){
     if(head == null) return -1;
     Node slow = head;
@@ -261,7 +261,7 @@ private int getLoopLength(Node head){
     return count;
 }
 
-//find the start node of the loop in linked list
+// find the start node of the loop in linked list
 private int getStartNodeLoop(Node head){
     if(head == null) return -1;
     Node slow = head;
@@ -287,7 +287,7 @@ private int getStartNodeLoop(Node head){
     return slow.data;
 }
 
-//inserting in the middle of linked list
+// inserting in the middle of linked list
 private Node InsertInMid(Node head,int data){
     if(head == null) return head;
     Node prev = head;
@@ -314,7 +314,7 @@ private Node InsertInMid(Node head,int data){
    }
 }
 
-//check if two linked list are identical
+// check if two linked list are identical
 private boolean compareLists(Node head1,Node head2){
     Node a = head1;
     Node b = head2;
@@ -330,7 +330,7 @@ private boolean compareLists(Node head1,Node head2){
     return false;
 }
 
-//merge two sorted linked lists(recursive)
+// merge two sorted linked lists(recursive)
 private Node mergeTwoLists(Node l1, Node l2) {
         if(l1 == null) return l2;
 		if(l2 == null) return l1;
@@ -343,7 +343,7 @@ private Node mergeTwoLists(Node l1, Node l2) {
 		}
  }
 
-//merge two sorted linked lists(iterative)
+// merge two sorted linked lists(iterative)
 private Node mergeTwoLists(Node a,Node b){
     Node start = new Node(-1);
     Node headNode = start;
@@ -366,7 +366,7 @@ private Node mergeTwoLists(Node a,Node b){
     return headNode.next;
 }
 
-//Intersection of two linked list(Y-shape)
+// Intersection of two linked list(Y-shape)
     private int getLength(ListNode head){
         ListNode temp = head;
         int count = 0;
@@ -408,7 +408,7 @@ private Node mergeTwoLists(Node a,Node b){
         return ans;
     }
 
-//remove duplicates from sorted linked list
+// remove duplicates from sorted linked list
 private Node removeDuplicates(Node head){
 	if(head == null) return null;
 	Node temp = head;
@@ -422,7 +422,7 @@ private Node removeDuplicates(Node head){
 	return head;
 }
 
-//remove duplicates from unsorted linked list
+// remove duplicates from unsorted linked list
 private Node removeDuplicateUnsorted(Node head){
 	if(head == null) return null;
 	Node temp = head;
@@ -439,10 +439,10 @@ private Node removeDuplicateUnsorted(Node head){
 	return head;
 }
 
-//remove all occurrences of duplicate nodes from linked list
+// remove all occurrences of duplicate nodes from linked list
 
 
-//reverse a linked list
+// reverse a linked list
 private Node reverseLinkedList(Node head){
 	Node prev = null;
 	Node current = head;
@@ -457,7 +457,7 @@ private Node reverseLinkedList(Node head){
 	return head;
 }
 
-//oddEven Linked list
+// oddEven Linked list
 private Node OddEvenLinkedList(Node head){
 	if(head == null) return null;
 	Node odd = head;
@@ -473,7 +473,7 @@ private Node OddEvenLinkedList(Node head){
 	return head;
 }
 
-//add 1 to a number represented as linked list
+// add 1 to a number represented as linked list
 
 
 // nth node from the end of linked list
@@ -497,3 +497,82 @@ private Node printNthFromEnd(Node head,int n){
 	}
 	return main_ptr.data;
 }
+
+// palindrome linked list 
+private boolean isPalindrome(Node head){
+	Node fast = head,slow = head;
+	while(fast!= null && fast.next!=null){
+		slow = slow.next;
+		fast = fast.next.next;
+	}
+	if(fast!=null){
+		slow = slow.next;
+	}
+	slow = reverse(slow); // reverse a linked list call
+	fast = head;
+	
+	while(slow!=null){
+           if(fast.data!=slow.data){
+		   return false;
+	  }
+	   fast = fast.next;
+           slow = slow.next;
+	}
+	return true;
+}
+
+// rearrange a linked list(imp. question)
+private void reorderList(Node head){
+	if(head == null || head.next == null) return;
+	
+	Node p1 = head;
+	Node p2 = head;
+	while(p2.next!=null && p2.next.next!=null){
+		p1 = p1.next;
+		p2 = p2.next.next;
+	}
+	
+	// reverse the half after the middle of linked list
+	Node preMiddle = p1;
+	Node preCurrent = p1.next;
+	while(preCurrent.next!=null){
+		Node current = preCurrent.next;
+		preCurrent.next = current.next;
+		current.next = preMiddle.next;
+		preMiddle.next = current;
+	}
+	
+	//start reorder one by one
+	p1 = head;
+	p2 = preMiddle.next;
+	while(p1!=preMiddle){
+		preMiddle.next = p2.next;
+		p2.next = p1.next;
+		p1.next = p2;
+		p1 = p2.next;
+		p2 = preMiddle.next;
+	}
+}
+
+// delete N nodes after M nodes in a linked list 
+private void deleteNafterM(Node head,int M,int N){
+	Node current = head,t;
+	int count;
+	while(current!=null){
+	 for(count = 1;count<M && current!=null;count++){
+	     curr = curr.next;
+	    }
+	    if(curr == null){
+		 return;
+	      }
+		t = current.next;
+		for(count = 1;count<= N &&  t!=null;count++){
+		    Node temp = t;
+		    t = t.next;
+		}
+		curr.next = t;
+		curr = t;
+	}
+}
+
+// remove every kth node form a linked list
