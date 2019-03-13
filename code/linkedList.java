@@ -440,7 +440,25 @@ private Node removeDuplicateUnsorted(Node head){
 }
 
 // remove all occurrences of duplicate nodes from linked list
-
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null) return null;
+        ListNode FakeHead = new ListNode(0);
+        FakeHead.next = head;
+        ListNode prev = FakeHead;
+        ListNode curr = head;
+        while(curr!=null){
+            while(curr.next!=null && curr.val == curr.next.val){
+                curr = curr.next;
+            }
+            if(prev.next == curr){
+                prev = prev.next;
+            }else{
+                prev.next = curr.next;
+            }
+            curr = curr.next;
+        }
+        return FakeHead.next;
+    }
 
 // reverse a linked list
 private Node reverseLinkedList(Node head){
