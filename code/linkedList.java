@@ -515,6 +515,32 @@ private Node printNthFromEnd(Node head,int n){
 	}
 	return main_ptr.data;
 }
+// remove nth node from the end of linked list
+public ListNode removeNthFromEnd(ListNode head, int n) {
+      if (head == null || head.next == null) return null;
+         
+        ListNode slow = head;
+        ListNode fast = head;
+         
+        // move fast pointer n steps ahead of slow
+        for (int i = 0; fast!=null && i < n; i++) {
+            fast = fast.next;
+        }
+         
+        // move slow and fast pointer one step a time
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+         
+        // delete the node
+        if (fast == null) {
+            head = head.next;
+        } else {
+            slow.next = slow.next.next;
+        }
+        return head;
+}
 
 // palindrome linked list 
 private boolean isPalindrome(Node head){
