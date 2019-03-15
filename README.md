@@ -37,4 +37,7 @@
   <li>rearrange a linked list</li>
   <li>delete N nodes after M nodes</li>
   <li>Remove every Kth Node from a linked list.</li>
+  <li>Rotate a linked list by K places.</li>
+  <li>Reverse a linked list from m to n places</li>
+  <li>Reorder linked list</li>
 </ul>
