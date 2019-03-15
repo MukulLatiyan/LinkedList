@@ -515,6 +515,7 @@ private Node printNthFromEnd(Node head,int n){
 	}
 	return main_ptr.data;
 }
+
 // remove nth node from the end of linked list
 public ListNode removeNthFromEnd(ListNode head, int n) {
       if (head == null || head.next == null) return null;
@@ -620,3 +621,68 @@ private void deleteNafterM(Node head,int M,int N){
 }
 
 // remove every kth node form a linked list
+
+// Rotate a linked list by K places.
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null) return null;
+        ListNode curr = head;
+        int len = 1;
+        while(curr.next!=null){
+            curr = curr.next;
+            len++;
+        }
+        curr.next = head;
+        int preLen = len-k % len-1;
+        ListNode pre = head;
+        while(preLen-->0){
+            pre = pre.next;
+        }
+        head = pre.next;
+        pre.next = null;
+        return head;
+    }
+
+// Reverse a linked list from m to n place
+public ListNode reverseBetween(ListNode head, int m, int n) {
+         ListNode dummy = new ListNode(0); // create a dummy node to mark the head of this list
+         dummy.next = head;
+         ListNode pre = dummy; // make a pointer pre as a marker for the node before reversing
+         for(int i = 0; i<m-1; i++) pre = pre.next;
+    
+        ListNode start = pre.next; // a pointer to the beginning of a sub-list that will be reversed
+        ListNode then = start.next; // a pointer to a node that will be reversed
+    
+    // 1 - 2 -3 - 4 - 5 ; m=2; n =4 ---> pre = 1, start = 2, then = 3
+    // dummy-> 1 -> 2 -> 3 -> 4 -> 5
+    
+      for(int i=0; i<n-m; i++)
+       {
+        start.next = then.next;
+        then.next = pre.next;
+        pre.next = then;
+        then = start.next;
+       }
+    
+    // first reversing : dummy->1 - 3 - 2 - 4 - 5; pre = 1, start = 2, then = 4
+    // second reversing: dummy->1 - 4 - 3 - 2 - 5; pre = 1, start = 2, then = 5 (finish)
+    
+      return dummy.next;
+    }
+
+// Reorder linked list
+// hashmap method 
+// another method exists where we find the middle of the linked list and then reverse the half after the middle
+// then simply merge the two halfs to reorder the list.
+HashMap<Integer,ListNode> map = new HashMap<>();
+        for(int i = 1;head != null;head = head.next,i++){
+            map.put(i,head);
+        }
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        for(int i = 1,j = map.size();i <= j;i++,j--){   //1,2,3,4
+            curr.next = map.get(i);                     //curr->1
+            if(i!= j) map.get(i).next = map.get(j);     //1->4
+            map.get(j).next = null;                     //4->null
+            curr = map.get(j);                          ///curr = 4,then 1->4
+        }
+        return dummy.next;
