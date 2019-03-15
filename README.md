@@ -32,6 +32,7 @@
   <li>OddEven Linked list</li>
   <li>Add 1 to a number represented as linked list</li>
   <li>nth node from end of linked list</li>
+  <li>Remove nth node from the end of the linked list</li>
   <li>plaindrome linked list</li>
   <li>rearrange a linked list</li>
   <li>delete N nodes after M nodes</li>
