@@ -686,3 +686,30 @@ HashMap<Integer,ListNode> map = new HashMap<>();
             curr = map.get(j);                          ///curr = 4,then 1->4
         }
         return dummy.next;
+}
+
+// add two numbers represented as linked list
+public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode a = l1;
+        ListNode b = l2;
+        ListNode code = new ListNode(0);
+        ListNode d = code;
+        int sum = 0;
+        while(a!=null || b!=null){
+            sum/=10;
+            if(a!=null){
+                sum+=a.val;
+                a = a.next;
+            }
+            if(b!=null){
+                sum+=b.val;
+                b = b.next;
+            }
+            d.next = new ListNode(sum%10);
+            d = d.next;
+        }
+        if(sum/10 == 1){
+            d.next = new ListNode(1);
+        }
+        return code.next;
+    }
