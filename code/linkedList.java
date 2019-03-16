@@ -366,6 +366,41 @@ private Node mergeTwoLists(Node a,Node b){
     return headNode.next;
 }
 
+// delete middle of a linked list
+public static int getLength(ListNode<Integer> head){
+        ListNode<Integer> temp = head;
+        int count = 0;
+        while(temp!=null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+ public static ListNode<Integer> deleteMid(ListNode<Integer> head) {
+		ListNode<Integer> temp = head;
+        if(head == null || head.next == null) return null;
+        ListNode<Integer> prev = new ListNode<>(-1);
+        prev.next = head;
+        ListNode<Integer> prev_slow = new ListNode<>(-1);
+        prev_slow.next = prev;
+        ListNode<Integer> slow = head;
+        ListNode<Integer> fast = head;
+        while(fast!=null && fast.next!=null){
+            prev_slow = prev_slow.next;
+            prev = prev.next;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if(getLength(head)%2==0){
+            prev_slow.next = prev.next;
+            prev = null;
+        }else if(getLength(head)%2!=0){
+            prev.next = slow.next;
+            slow = null;
+        }
+        return head;
+    }
+
 // Intersection of two linked list(Y-shape)
     private int getLength(ListNode head){
         ListNode temp = head;
@@ -492,6 +527,38 @@ private Node OddEvenLinkedList(Node head){
 }
 
 // add 1 to a number represented as linked list
+ public static ListNode<Integer> reverse(ListNode<Integer> head){
+        if(head == null) return null;
+        ListNode<Integer> prev = null;
+        ListNode<Integer> curr = head;
+        ListNode<Integer> next = null;
+        while(curr!=null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+        return head;
+    }
+  public static ListNode<Integer>  changelist(ListNode<Integer> head) {
+		ListNode<Integer> FakeHead = reverse(head);
+        ListNode<Integer> temp = FakeHead;
+        while(temp!=null){
+            if(temp.data + 1 <= 9){
+                temp.data = temp.data + 1;
+                break;
+            }else{
+                temp.data = 0 ;
+                if(temp.next == null){
+                    temp.next = new ListNode<Integer>(1);
+                    break;
+                }
+                temp = temp.next;
+            }
+        }
+        return reverse(FakeHead);
+   }
 
 
 // nth node from the end of linked list
