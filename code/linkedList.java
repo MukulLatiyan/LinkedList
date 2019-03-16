@@ -673,7 +673,8 @@ public ListNode reverseBetween(ListNode head, int m, int n) {
 // hashmap method 
 // another method exists where we find the middle of the linked list and then reverse the half after the middle
 // then simply merge the two halfs to reorder the list.
-HashMap<Integer,ListNode> map = new HashMap<>();
+public ListNode reorder(ListNode head){
+     HashMap<Integer,ListNode> map = new HashMap<>();
         for(int i = 1;head != null;head = head.next,i++){
             map.put(i,head);
         }
@@ -689,7 +690,7 @@ HashMap<Integer,ListNode> map = new HashMap<>();
 }
 
 // add two numbers represented as linked list
-public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode a = l1;
         ListNode b = l2;
         ListNode code = new ListNode(0);
@@ -712,4 +713,23 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
             d.next = new ListNode(1);
         }
         return code.next;
+    }
+
+// partition list
+public ListNode partition(ListNode head, int x) {
+        ListNode dummy1 = new ListNode(0), dummy2 = new ListNode(0);  //dummy heads of the 1st and 2nd queues
+        ListNode curr1 = dummy1, curr2 = dummy2;      //current tails of the two queues;
+        while (head!=null){
+            if (head.val<x) {
+              curr1.next = head;
+              curr1 = head;
+            }else {
+              curr2.next = head;
+              curr2 = head;
+            }
+              head = head.next;
+            }
+        curr2.next = null;          //important! avoid cycle in linked list. otherwise u will get TLE.
+        curr1.next = dummy2.next;
+        return dummy1.next;
     }
