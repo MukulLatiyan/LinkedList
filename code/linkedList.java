@@ -815,3 +815,25 @@ public ListNode partition(ListNode head, int x) {
         curr1.next = dummy2.next;
         return dummy1.next;
     }
+
+// union and intersection of linked list
+public ListNode unionAndIntersection(ListNode head1,ListNode head2){
+        ListNode a = head1;  
+  	ListNode b = head2;
+	HashSet<Integer> hset = new HashSet<>();
+	List<Integer> list1 = new ArryaList<>(); // will contain the union elements
+	List<Integer> list2 = new ArrayList<>(); //  will contain the intersection elements
+	while(a!=null){
+	   hset.add(a.data);
+	   list1.add(a.data);
+	   a = a.next;
+	}
+	while(b!=null){
+	   if(hset.contains(b.data)){
+	      list2.add(b.data);
+	   }else{
+	      list1.data(b.data);
+	   }
+	     b = b.next;
+	}
+}
