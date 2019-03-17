@@ -29,6 +29,7 @@
   <li>Remove duplicates from unsorted linked list</li>
   <li>Remove all occurrences of duplicate nodes from linked list</li>
   <li>Reverse a linked list</li>
+  <li>Swap List nodes in a pair.</li>
   <li>OddEven Linked list</li>
   <li>Add 1 to a number represented as linked list</li>
   <li>nth node from end of linked list</li>
