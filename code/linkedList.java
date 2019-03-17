@@ -458,21 +458,20 @@ private Node removeDuplicates(Node head){
 }
 
 // remove duplicates from unsorted linked list
-private Node removeDuplicateUnsorted(Node head){
-	if(head == null) return null;
-	Node temp = head;
-	HashSet<Integer> hset = new HashSet<>();
-	while(temp!=null){
-		if(temp.data == temp.next.data){
-			prev.next = temp.next;
-		}else{
-			prev = temp;
-			hset.add(temp.data);
-		}
-		temp = temp.next;
-	}
-	return head;
-}
+public static ListNode<Integer> deleteDuplicates(ListNode<Integer> head) {
+      Set<Integer> set = new HashSet<>();
+      ListNode<Integer> pre = null;
+      ListNode<Integer> fakeHead = head;
+    	while(fakeHead != null){
+          if(!set.add(fakeHead.data)){
+            pre.next = fakeHead.next;
+          } else{
+            pre = fakeHead;
+          }
+        fakeHead = fakeHead.next;
+     }
+    return head;
+   }
 
 // remove all occurrences of duplicate nodes from linked list
     public ListNode deleteDuplicates(ListNode head) {
