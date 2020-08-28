@@ -65,7 +65,12 @@ public class Main {
         System.gc();
     }
     
-    // merge sorted linked lists
+    /* 
+        merge sorted linked lists
+        1 2 5
+        3 4
+        => 1 2 3 4 5
+    */
     private static ListNode mergeTwoSortedLists(ListNode headA,ListNode headB){
         if(headA == null && headB == null) return null;
         ListNode fakeHead = new ListNode(-1);
@@ -85,6 +90,9 @@ public class Main {
         return fakeHead.next;
     }
     
+    /*
+        Detect Cycle in linked list
+    */
     private static boolean isCycle(ListNode head){
         if(head == null) return false;
         ListNode slow = head, fast = head;
@@ -96,7 +104,11 @@ public class Main {
         return false;
     }
     
-    // palindrome linked list
+    /*
+        palindrome linked list
+        1 2 1 ( true )
+        1 2 2 ( false )
+    */
     private static boolean isPalindromeList(ListNode head){
         if(head == null) return false;
         ListNode slow = head, fast = head;
@@ -117,7 +129,9 @@ public class Main {
         return true;
     }
     
-    // Intersection of two Y-shaped linked list
+    /*
+        Intersection of two Y-shaped linked list
+    */
     private static ListNode intersectionOfTwoLists(ListNode headA,ListNode headB){
         if(headA == null && headB == null) return null;
         ListNode a = headA, b = headB;
