@@ -1,215 +1,320 @@
+import java.util.Stack;
 // "static void main" must be defined in a public class.
 public class Main {
     
-    static class ListNode{
+    static class TreeNode{
         int val;
-        ListNode next;
-        ListNode(int d){
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int d){
             val = d;
-            next = null;
+            left = null;
+            right = null;
         }
     }
     
-    private static void printList(ListNode head){
-        if(head == null) return;
-        ListNode temp = head;
-        while(temp!=null){
-            System.out.print(temp.val+" ");
-            temp = temp.next;
-        }
-        System.out.println();
-    }
-    
-    // middle of linked list
     /*
-        1 2 3 4 ( middle is 3 )
-        1 2 3 4 5 ( middle is 3 )
+        In order traversal 
+        Recursive version.
     */
-    private static int getMiddle(ListNode head){
-        if(head == null) return -1;
-        ListNode slow = head, fast = head;
-        while(fast!=null && fast.next!=null){
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow.val;
+    private static void inOrder(TreeNode root){
+        if(root == null) return;
+        inOrder(root.left);
+        System.out.print(root.val+" ");
+        inOrder(root.right);
     }
-    
-    // reverse a linked list
     /*
-        1 2 3 4 -> 4 3 2 1
+        In order traversal 
+        Iterative version.
     */
-    
-    private static ListNode reverseList(ListNode head){
-        if(head == null) return null;
-        ListNode prev = null, curr = head, next = null;
-        while(curr!=null){
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+    private static void inOrderIterative(TreeNode root){
+        if(root == null) return;
+        Stack<TreeNode> stack = new Stack<>();
+        while(root!=null){
+            stack.push(root);
+            root = root.left;
         }
-        return prev;
-    }
-    
-    // delete node in a linked list
-    /*
-        1 2 3 4 5 -> 1 2 3 5( given access to only that node of the list i.e 4)
-    */
-    
-    private static void deleteSpecificNode(ListNode node){
-        if(node == null) return;
-        ListNode temp = node.next;
-        node.val = temp.val;
-        node.next = temp.next;
-        System.gc();
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            System.out.print(node.val+" ");
+            
+            if(node.right!=null){
+                node = node.right;
+                while(node!=null){
+                    stack.push(node);
+                    node = node.left;
+                }
+            }
+        }
     }
     
     /* 
-        merge sorted linked lists
-        1 2 5
-        3 4
-        => 1 2 3 4 5
+        Pre-Order Traversal
+        Recursive
     */
-    private static ListNode mergeTwoSortedLists(ListNode headA,ListNode headB){
-        if(headA == null && headB == null) return null;
-        ListNode fakeHead = new ListNode(-1);
-        ListNode dummy = fakeHead;
-        while(headA!=null && headB !=null){
-            if(headA.val < headB.val){
-                dummy.next = headA;
-                headA = headA.next;
-            }else{
-                dummy.next = headB;
-                headB = headB.next;
+    private static void preOrder(TreeNode root){
+        if(root == null) return;
+        System.out.print(root.val+" ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+    
+    /*
+        preOrder traversal
+        Iterative
+    */
+    private static void preOrderIterative(TreeNode root){
+        if(root == null) return;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            System.out.print(node.val+" ");
+            if(node.right!=null) stack.push(node.right);
+            if(node.left!=null) stack.push(node.left);
+        }
+    }
+    
+    /*
+        postOrder traversal
+        Recursive
+    */
+    private static void postOrder(TreeNode root){
+        if(root == null) return;
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.val+" ");
+    }
+    
+    /*
+        postOrder traversal
+        Iterative
+    */
+    private static void postOrderIterative(TreeNode root){
+        if(root == null) return;
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        stack1.push(root);
+        while(!stack1.isEmpty()){
+            TreeNode node = stack1.pop();
+            stack2.push(node);
+            
+            if(node.left != null){
+                stack1.push(node.left);
             }
-            dummy = dummy.next;
+            if(node.right != null){
+                stack2.push(node.right);
+            }
         }
-        if(headA != null) dummy.next = headA;
-        if(headB != null) dummy.next = headB;
-        return fakeHead.next;
+        while(!stack2.isEmpty()){
+            TreeNode node = stack2.pop();
+            System.out.print(node.val+" ");
+        }
     }
     
     /*
-        Detect Cycle in linked list
+        Level Order Traversal
+        Iterative
     */
-    private static boolean isCycle(ListNode head){
-        if(head == null) return false;
-        ListNode slow = head, fast = head;
-        while(fast!=null && fast.next!=null){
-            slow = slow.next;
-            fast = fast.next.next;
-            if(slow == fast) return true;
+    private static void levelOrderIterative(TreeNode root){
+        if(root == null) return;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            TreeNode node = queue.poll();
+            System.out.print(node.val+" ");
+            if(node.left!=null) queue.offer(node.left);
+            if(node.right!=null) queue.offer(node.right);
         }
-        return false;
     }
     
     /*
-        palindrome linked list
-        1 2 1 ( true )
-        1 2 2 ( false )
+        Height of a binary tree
+        Recursive
     */
-    private static boolean isPalindromeList(ListNode head){
-        if(head == null) return false;
-        ListNode slow = head, fast = head;
-        while(fast!=null && fast.next!=null){
-            slow = slow.next;
-            fast = fast.next.next;
+    private static int heightTree(TreeNode root){
+        if(root == null) return 0;
+        return 1 + Math.max(heightTree(root.left),heightTree(root.right));
+    }
+    
+    /*
+        Height of a binary tree
+        Iterative
+    */
+    private static int heightTreeIterative(TreeNode root){
+        if(root == null) return 0;
+        int level = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
+            }
+            level++;
         }
-        if(fast!=null){
-            slow = slow.next;
-        }
-        slow = reverseList(slow);
-        fast = head;
-        while(slow!=null){
-            if(slow.val!=fast.val) return false;
-            slow = slow.next;
-            fast = fast.next;
+        return level;
+    }
+    
+    /*
+        Full Tree or Not?
+        Iterative
+    */
+    private static boolean isFullTree(TreeNode root){
+        if(root == null) return false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                if(node.left == null && node.right != null) return false;
+                if(node.left != null && node.right == null) return false;
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
+            }
         }
         return true;
     }
     
     /*
-        Intersection of two Y-shaped linked list
+        isSameTree or Not?
+        Recursive
     */
-    private static ListNode intersectionOfTwoLists(ListNode headA,ListNode headB){
-        if(headA == null && headB == null) return null;
-        ListNode a = headA, b = headB;
-        while(a!=b){
-            a = a == null ? headB : a.next;
-            b = b == null ? headA : b.next;
+    private static boolean isSameTree(TreeNode p,TreeNode q){
+        if(p == null || q == null) return p == q;
+        return p.val == q.val && isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+    }
+    
+    /*
+        Symmetric Tree or Not?
+            - Mirror Image
+    */
+    private static boolean isTreeSymmetric(TreeNode root){
+        if(root == null) return true;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+        while(!queue.isEmpty()){
+            TreeNode t1 = queue.poll();
+            TreeNode t2 = queue.poll();
+            if(t1 == null && t2 == null) continue;
+            if(t1 == null || t2 == null) return false;
+            if(t1.val != t2.val) return false;
+            queue.offer(t1.left);
+            queue.offer(t2.right);
+            queue.offer(t1.right);
+            queue.offer(t2.left);
         }
-        return a;
+        return true;
+    }
+    
+    /*
+        Children sum parent
+        Iterative
+    */
+    private static int isSumProperty(TreeNode root)
+    {
+        if(root == null) return 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                if(node.left == null && node.right == null) break;
+                int sum = node.left != null ? node.left.val : 0;
+                sum += node.right != null ? node.right.val : 0;
+               // System.out.println(sum);
+                if(sum != node.val) return 0;
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
+            }
+        }
+        return 1;
+    }
+    
+    /*
+        Level Order Traversal 
+        Line By Line
+    */
+    private static void levelOrderIterativeLine(TreeNode root){
+        if(root == null) return;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                System.out.print(node.val+" ");
+                if(node.left!=null) queue.offer(node.left);
+                if(node.right!=null) queue.offer(node.right);
+            }
+            System.out.println();
+        }
+    }
+    
+    /*
+        Maximum Width of binary tree
+        Iterative
+    */
+    private static int maxTreeWidth(TreeNode root){
+        if(root == null) return 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int max = Integer.MIN_VALUE;
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            max = Math.max(max,size);
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                if(node.left!=null) queue.offer(node.left);
+                if(node.right!=null) queue.offer(node.right);
+            }
+        }
+        return max;
+    }
+    
+    /*
+        Balanced Binary Tree
+        Recursive
+    */
+    private static boolean isTreeBalanced(TreeNode root){
+        if(root == null) return true;
+        int lHeight = heightTree(root.left);
+        int rHeight = heightTree(root.right);
+        if(Math.abs(lHeight - rHeight) > 1) return false;
+        return isTreeBalanced(root.left) && isTreeBalanced(root.right);
     }
     
     public static void main(String[] args) {
-        // ListNode head = new ListNode(1);
-        // head.next = new ListNode(2);
-        // head.next.next = new ListNode(3);
-        // head.next.next.next = new ListNode(4);
-        // System.out.println("Linked list:");
-        // printList(head);
-        // System.out.println("Middle of the linked list is: \n"+ getMiddle(head));
-        // ListNode newHead = reverseList(head);
-        // System.out.println("Reversed list: ");
-        // printList(newHead);
-        // ListNode headA = new ListNode(1);
-        // headA.next = new ListNode(2);
-        // headA.next.next = new ListNode(3);
-        // headA.next.next.next = new ListNode(4);
-        // System.out.println("After deleting 3rd node: ");
-        // deleteSpecificNode(headA.next.next);
-        // printList(headA);
-        
-        /* 
-            Case 2
-            Merged Two Sorted List
-        */
-        
-        // ListNode headA = new ListNode(1);
-        // headA.next = new ListNode(3);
-        // headA.next.next = new ListNode(5);
-        // ListNode headB = new ListNode(2);
-        // headB.next = new ListNode(4);
-        // headB.next.next = new ListNode(6);
-        // ListNode mergedHead = mergeTwoSortedLists(headA,headB);
-        // System.out.println("Merged linked list is: ");
-        // printList(mergedHead);
-        
-        /* 
-            Cycle cases 
-        */
-        // ListNode head = new ListNode(1);
-        // head.next = new ListNode(2);
-        // head.next.next = new ListNode(3);
-        // head.next.next.next = new ListNode(4);
-        // head.next.next.next.next = new ListNode(5);
-        // head.next.next.next.next.next = head.next.next;
-        // boolean isCycleThere = isCycle(head);
-        // System.out.println(isCycleThere);
-        
-        /* 
-            Palindrome List
-        */
-        // ListNode head = new ListNode(1);
-        // head.next = new ListNode(2);
-        // head.next.next = new ListNode(2);
-        // head.next.next.next = new ListNode(2);
-        // boolean isPalindrome = isPalindromeList(head);
-        // System.out.println(isPalindrome);
-        
-        /*
-            Intersection of Y-shaped Linked Lists
-        */
-        ListNode headA = new ListNode(1);
-        headA.next = new ListNode(2);
-        headA.next.next = new ListNode(3);
-        headA.next.next.next = new ListNode(4);
-        headA.next.next.next.next = new ListNode(5);
-        
-        ListNode headB = new ListNode(7);
-        headB.next = headA.next.next;
-        ListNode node = intersectionOfTwoLists(headA,headB);
-        System.out.println(node.val);
+        TreeNode root = new TreeNode(5);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        //root.left.left = new TreeNode(3);
+        //root.left.right = new TreeNode(4);
+        TreeNode rootA = new TreeNode(1);
+        rootA.left = new TreeNode(2);
+        rootA.right = new TreeNode(5);
+        rootA.left.left = new TreeNode(3);
+        rootA.left.right = new TreeNode(4);
+        boolean isBalanced = isTreeBalanced(root);
+        System.out.println(isBalanced);
+        //levelOrderIterativeLine(rootA);
+        //int ans = isSumProperty(root);
+        //boolean isSymmetric = isTreeSymmetric(root);
+        //boolean ans = isSameTree(root,rootA);
+        //System.out.println(ans);
+        //boolean isFullTree = isFullTree(root);
+        //System.out.println(isFullTree);
+        //int heightOfTree = heightTree(root);
+        //heightOfTree = heightTreeIterative(root);
+        //System.out.println(heightOfTree);
+        //levelOrderIterative(root);
+        //postOrderIterative(root);
+        //preOrderIterative(root);
+        //inOrderIterative(root);
     }
 }
